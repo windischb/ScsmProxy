@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net5.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="middlerApp.Agents.Shared" Version="0.1.0" />
+    <PackageReference Include="Scripter.Shared" Version="3.0.1" />
+    <PackageReference Include="ScsmClient.SharedModels" Version="2.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ScsmProxy.Shared.Interfaces\ScsmProxy.Shared.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>
