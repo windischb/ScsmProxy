@@ -1,5 +1,6 @@
 using System;
 using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
@@ -61,7 +62,16 @@ namespace ScsmProxy.Service
                         _connection = HARRRConnection.Create(builder => builder
                                 .WithUrl(_startUpConfiguration.MiddlerAgentUrl, options =>
                                 {
+                                    options.HttpMessageHandlerFactory = (message) =>
+                                    {
+                                        if (message is HttpClientHandler clientHandler)
+                                            // bypass SSL certificate
+                                            clientHandler.ServerCertificateCustomValidationCallback +=
+                                                (sender, certificate, chain, sslPolicyErrors) => { return true; };
+                                        return message;
+                                    };
                                     options.Headers["#Hostname"] = Environment.MachineName;
+
                                 })
                                 //.AddMessagePackProtocol()
                                 .AddNewtonsoftJsonProtocol()

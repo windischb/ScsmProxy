@@ -33,22 +33,24 @@ namespace ScsmProxy.Service.Implementations
             return ScsmClient.ScsmObject().GetObjectById(id);
         }
 
-        public ScsmObject[] GetObjectsByTypeName(string typeName, string criteria, int? maxResults = null, int? levels = null)
+        public ScsmObject[] GetObjectsByTypeName(string typeName, string criteria, RetrievalOptions retrievalOptions = null)
         {
             var objs = ScsmClient.ScsmObject()
-                .GetObjectsByTypeName(typeName, criteria, maxResults, levels).ToArray();
+                .GetObjectsByTypeName(typeName, criteria, retrievalOptions).ToArray();
             return objs;
         }
 
-        public ScsmObject[] GetObjectsByTypeId(string id, string criteria, int? maxResults = null, int? levels = null)
+
+
+        public ScsmObject[] GetObjectsByTypeId(string id, string criteria, RetrievalOptions retrievalOptions = null)
         {
-            return GetObjectsByTypeId(id.ToGuid(), criteria, maxResults, levels);
+            return GetObjectsByTypeId(id.ToGuid(), criteria, retrievalOptions);
         }
 
-        public ScsmObject[] GetObjectsByTypeId(Guid id, string criteria, int? maxResults = null, int? levels = null)
+        public ScsmObject[] GetObjectsByTypeId(Guid id, string criteria, RetrievalOptions retrievalOptions = null)
         {
             return ScsmClient.ScsmObject()
-                .GetObjectsByTypeId(id, criteria, maxResults, levels).ToArray();
+                .GetObjectsByTypeId(id, criteria, retrievalOptions).ToArray();
         }
 
         //public Guid CreateObject(string className, Dictionary<string, object> properties)
@@ -64,14 +66,14 @@ namespace ScsmProxy.Service.Implementations
         //    return obj;
         //}
 
-        public Dictionary<int, Guid> CreateObjectsFromTemplate(string templateName, Stream jsonStream, CancellationToken cancellationToken)
+        public Dictionary<int, Guid> CreateObjectsFromTemplate(string templateName, Stream jsonStream, CreateOptions createOptions, CancellationToken cancellationToken)
         {
             if (jsonStream == null || jsonStream.CanRead == false)
                 throw new InvalidCastException(nameof(jsonStream));
 
             var objectList = FromStreamToEnumerable(jsonStream, cancellationToken);
 
-            return ScsmClient.Object().CreateObjectsFromTemplateName(templateName, objectList, cancellationToken);
+            return ScsmClient.Object().CreateObjectsFromTemplateName(templateName, objectList, createOptions, cancellationToken);
         }
 
         public void UpdateObject(Guid id, Dictionary<string, object> properties)
@@ -80,7 +82,7 @@ namespace ScsmProxy.Service.Implementations
         }
 
 
-        public Dictionary<int, Guid> CreateObjects(string className, Stream jsonStream, CancellationToken cancellationToken)
+        public Dictionary<int, Guid> CreateObjects(string className, Stream jsonStream, CreateOptions createOptions, CancellationToken cancellationToken)
         {
 
             if (jsonStream == null || jsonStream.CanRead == false)
@@ -88,7 +90,7 @@ namespace ScsmProxy.Service.Implementations
 
             var objectList = FromStreamToEnumerable(jsonStream, cancellationToken);
 
-            return ScsmClient.Object().CreateObjectsByClassName(className, objectList, cancellationToken);
+            return ScsmClient.Object().CreateObjectsByClassName(className, objectList, createOptions, cancellationToken);
 
         }
 

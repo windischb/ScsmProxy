@@ -27,9 +27,9 @@ namespace ScsmProxy.Service.Implementations
             return ScsmClient.Incident().GetById(id);
         }
 
-        public List<Incident> GetByCriteria(string criteria, int? maxResults = null)
+        public List<Incident> GetByCriteria(string criteria, RetrievalOptions retrievalOptions = null)
         {
-            return ScsmClient.Incident().GetByCriteria(criteria, maxResults);
+            return ScsmClient.Incident().GetByCriteria(criteria, retrievalOptions);
         }
 
         public Guid Create(Incident incident)

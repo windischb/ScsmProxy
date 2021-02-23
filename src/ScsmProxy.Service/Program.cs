@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -17,6 +18,9 @@ namespace ScsmProxy.Service
 
         public static int Main(string[] args)
         {
+
+            ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
+
             IsService = !(Debugger.IsAttached || args.Contains("--console"));
             var webHostArgs = args.Where(arg => arg != "--console").ToArray();
 

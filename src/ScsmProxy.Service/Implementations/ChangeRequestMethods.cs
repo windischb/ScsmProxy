@@ -26,9 +26,9 @@ namespace ScsmProxy.Service.Implementations
             return ScsmClient.ChangeRequest().GetById(id, levels);
         }
 
-        public List<ChangeRequest> GetByCriteria(string criteria, int? maxResults = null, int? levels = null)
+        public List<ChangeRequest> GetByCriteria(string criteria, RetrievalOptions retrievalOptions = null)
         {
-            return ScsmClient.ChangeRequest().GetByCriteria(criteria, maxResults, levels);
+            return ScsmClient.ChangeRequest().GetByCriteria(criteria, retrievalOptions);
         }
 
         public Guid Create(ChangeRequest changeRequest)

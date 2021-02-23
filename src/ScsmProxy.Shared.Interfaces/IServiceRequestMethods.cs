@@ -8,7 +8,7 @@ namespace ScsmProxy.Shared.Interfaces
     {
         ServiceRequest GetByGenericId(Guid id);
         ServiceRequest GetById(string id);
-        List<ServiceRequest> GetByCriteria(string criteria, int? maxResults = null);
+        List<ServiceRequest> GetByCriteria(string criteria, RetrievalOptions retrievalOptions = null);
         Guid Create(ServiceRequest serviceRequest);
         Guid CreateFromTemplate(string templateName, ServiceRequest serviceRequest);
     }

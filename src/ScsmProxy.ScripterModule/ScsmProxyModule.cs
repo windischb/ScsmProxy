@@ -4,21 +4,20 @@ using ScsmProxy.Shared.Interfaces;
 
 namespace ScsmProxy.ScripterModule
 {
-    public class ScsmClientModule : IScripterModule
+    public class ScsmProxyModule : IScripterModule
     {
         private readonly IMiddlerAgentsService _middlerAgentsService;
 
 
-        public ScsmClientModule(IMiddlerAgentsService middlerAgentsService)
+        public ScsmProxyModule(IMiddlerAgentsService middlerAgentsService)
         {
             _middlerAgentsService = middlerAgentsService;
         }
 
-
-        public IObjectMethods ScsmObject()
+        public ScsmClient GetRandomClient()
         {
             var agent = _middlerAgentsService.GetRandomAgent();
-            return new ObjectMethods(agent.GetInterface<IObjectMethods>());
+            return new ScsmClient(agent);
         }
 
     }

@@ -8,7 +8,7 @@ namespace ScsmProxy.Shared.Interfaces
     {
         Incident GetByGenericId(Guid id);
         Incident GetById(string id);
-        List<Incident> GetByCriteria(string criteria, int? maxResults = null);
+        List<Incident> GetByCriteria(string criteria, RetrievalOptions retrievalOptions = null);
         Guid Create(Incident incident);
         Guid CreateFromTemplate(string templateName, Incident incident);
     }
